@@ -1,0 +1,43 @@
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+	<session-factory>
+		<!-- JDBC Database parámetros de conexión -->
+		<property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+																		<!-- OJO estaba partiendo la línea para ver mejor
+																						y me daba error por esto sin saberlo -->
+		<!-- property name="connection.url">jdbc:mysql://localhost:3306/minstituto?useSSL=false&amp;serverTimezone=UTC&amp;allowPublicKeyRetrieval=true&amp;useUnicode=yes&amp;characterEncoding=UTF-8</property -->
+		<!-- createDatabaseIfNotExist (SIN "S") necesario para que no dé error de conexión si la BD no está aun creada -->
+		<property name="connection.url">jdbc:mysql://localhost:3306/minstituto?createDatabaseIfNotExist=true&amp;useSSL=false&amp;serverTimezone=UTC&amp;allowPublicKeyRetrieval=true&amp;useUnicode=yes&amp;characterEncoding=UTF-8</property>
+		
+		<property name="connection.username">root</property>
+		<property name="connection.password"></property>
+		
+		<!-- JDBC connection pool Configuaración -->
+		<property name="connection.pool_size">1</property>
+			
+		<!-- Dialecto SQL -->
+		<!-- La versión 8 elimina algunos warnings molestos, como describo en minstituto.sql -->
+		<property name="dialect">org.hibernate.dialect.MySQL8Dialect</property>
+		<!-- La BD del ejercicio es 10.1.37-MariaDB -->
+		<!-- property name="dialect">org.hibernate.dialect.MariaDB10Dialect</property -->
+		<!-- Para asegurar que el motor es InnoDB, lo siguiente está "deprecated": -->
+		<!-- property name="dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property -->
+		<property name="dialect.storage_engine">innodb</property>
+
+		<!-- Poner el contexto de la sesión -->
+		<property name="current_session_context_class">thread</property>
+
+		<!-- Que se muestre el SQL que se genera (para debugar) -->
+		<property name="show_sql">false</property>
+		<property name="format_sql">true</property>
+
+		<!-- Para el script que cargue la base de datos, con vistas a desarrolladores.
+			Se pueden añadir varios	import_files separados con coma. Puede no especificarse
+			el nombre, en cuyo caso el archivo ha de llamarse import.sql. En estos 
+			archivos script de sql,	todos los statements han de estar contenidos en
+			1 SOLA LÍNEA PARA QUE	FUNCIONEN -->
+		<property name="hibernate.hbm2ddl.auto">create</property>
+		<property name="hibernate.hbm2ddl.import_files">/minstituto.sql</property>	
+	</session-factory>
+</hibernate-configuration>
